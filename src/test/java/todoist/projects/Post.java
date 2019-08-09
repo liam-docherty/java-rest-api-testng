@@ -33,8 +33,7 @@ public class Post extends BaseClass {
         System.out.println("Request: " + EntityUtils.toString(request.getEntity()));
         System.out.println("Response: " + EntityUtils.toString(response.getEntity()));
 
-        int statusCode = response.getStatusLine().getStatusCode();
-        assertEquals(statusCode, 200);
+        assertEquals(getStatusCode(response), 200);
 
     }
 

@@ -11,10 +11,12 @@ import static org.testng.Assert.assertEquals;
 
 public class Delete extends BaseClass {
 
+    long id;
+
     @Test
     public void deleteProject() throws IOException {
 
-        long id = 2215198631L;
+        id = 2215198631L;
 
         HttpDelete request = new HttpDelete(BaseClass.PROJECTS_ENDPOINT + "/" + id);
 
@@ -22,7 +24,8 @@ public class Delete extends BaseClass {
 
         response = client.execute(request);
 
-        assertEquals(response.getStatusLine().getStatusCode(), 204);
+        assertEquals(getStatusCode(response), 204);
 
     }
+
 }
