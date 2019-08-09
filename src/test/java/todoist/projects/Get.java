@@ -1,24 +1,24 @@
 package todoist.projects;
 
-import org.apache.http.HttpHeaders;
+import todoist.BaseClass;
+
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import todoist.BaseTest;
 
 import java.io.IOException;
 
 import static org.testng.Assert.assertEquals;
 
-public class Get {
+public class Get extends BaseClass {
 
     CloseableHttpClient client;
     CloseableHttpResponse response;
+    HttpGet request;
 
     @BeforeMethod
     public void setup() {
@@ -36,18 +36,13 @@ public class Get {
     @Test
     public void getAllProjects() throws IOException {
 
-        HttpGet request = new HttpGet(BaseTest.PROJECTS_ENDPOINT);
+        request = createHttpGet(PROJECTS_ENDPOINT);
+        setPersonalAuthorizationToken(request);
 
-        request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + BaseTest.TOKEN);
+        response = sendRequest(client, request);
+        printResponseBody(response);
 
-        response = client.execute(request);
-
-        System.out.println(EntityUtils.toString(response.getEntity()));
-
-        // TODO: This should be in a Util since it will be used in every test
-        int statusCode = response.getStatusLine().getStatusCode();
-
-        assertEquals(statusCode, 200);
+        assertEquals(getStatusCode(response), 200);
     }
 
 }

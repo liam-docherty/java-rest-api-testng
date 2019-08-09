@@ -11,7 +11,7 @@ import org.apache.http.util.EntityUtils;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import todoist.BaseTest;
+import todoist.BaseClass;
 
 import java.io.IOException;
 
@@ -39,10 +39,10 @@ public class Post {
     @Test
     public void createProject() throws IOException {
 
-        HttpPost request = new HttpPost(BaseTest.PROJECTS_ENDPOINT);
+        HttpPost request = new HttpPost(BaseClass.PROJECTS_ENDPOINT);
 
         // TODO: These could be common util methods
-        request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + BaseTest.TOKEN);
+        request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + BaseClass.TOKEN);
         request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
 
         // TODO: Here we are hardcoding the body as a string. I want to be able to programmatically build the JSON, supplying values for each field
