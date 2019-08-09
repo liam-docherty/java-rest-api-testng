@@ -58,4 +58,5 @@ public class GetSuccess extends BaseClass {
 
         assertEquals(statusCode, 200);
     }
+
 }
