@@ -1,7 +1,5 @@
 package todoist.projects;
 
-import org.apache.http.HttpHeaders;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
@@ -17,20 +15,18 @@ public class Post extends BaseClass {
     @Test
     public void createProject() throws IOException {
 
-        HttpPost request = new HttpPost(PROJECTS_ENDPOINT);
-
-        // TODO: These could be common util methods
-        request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + TOKEN);
-        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+        postRequest = createHttpPost(PROJECTS_ENDPOINT);
+        setPersonalAuthorizationToken(postRequest);
+        setApplicationJsonContentType(postRequest);
 
         // TODO: Here we are hardcoding the body as a string. I want to be able to programmatically build the JSON, supplying values for each field
         String json = "{\"name\": \"deleteme\"}";
 
-        request.setEntity(new StringEntity(json, ContentType.APPLICATION_JSON));
+        postRequest.setEntity(new StringEntity(json, ContentType.APPLICATION_JSON));
 
-        response = client.execute(request);
+        response = sendRequest(client, postRequest);
 
-        System.out.println("Request: " + EntityUtils.toString(request.getEntity()));
+        System.out.println("Request: " + EntityUtils.toString(postRequest.getEntity()));
         System.out.println("Response: " + EntityUtils.toString(response.getEntity()));
 
         assertEquals(getStatusCode(response), 200);

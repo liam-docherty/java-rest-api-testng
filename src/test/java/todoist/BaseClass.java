@@ -1,6 +1,8 @@
 package todoist;
 
+import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -21,7 +23,9 @@ public class BaseClass {
 
     public CloseableHttpClient client;
     public CloseableHttpResponse response;
-    public HttpGet request;
+    public HttpGet getRequest;
+    public HttpPost postRequest;
+    public HttpDelete deleteRequest;
 
     @BeforeMethod
     public void buildClient() {
@@ -38,22 +42,70 @@ public class BaseClass {
 
     }
 
+    // TODO: These should be moved somewhere more generic, only the Personal Authorization Token one is specific to this API
 
-    // TODO: Need to work out how to use these for all HTTP methods
+
+    // TODO: Need to work out how to re-write these so there is one common method
     public static void setPersonalAuthorizationToken(HttpGet request) {
 
         RequestUtils.setAuthorizationToken(request, TOKEN);
 
     }
 
-    // TODO: These should be moved somewhere more generic, only the top 1 is specific to this API
+    public static void setPersonalAuthorizationToken(HttpPost request) {
+
+        RequestUtils.setAuthorizationToken(request, TOKEN);
+
+    }
+
+    public static void setPersonalAuthorizationToken(HttpDelete request) {
+
+        RequestUtils.setAuthorizationToken(request, TOKEN);
+
+    }
+
     public static HttpGet createHttpGet(String url) {
 
         return new HttpGet(url);
 
     }
 
+    public static HttpPost createHttpPost(String url) {
+
+        return new HttpPost(url);
+
+    }
+
+    public static HttpDelete createHttpDelete(String url) {
+
+        return new HttpDelete(url);
+
+    }
+
+
+    // TODO: This parameter is specific to one method. This may need to be more generic e.g. for PUT
+    public static void setApplicationJsonContentType(HttpPost request) {
+
+        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+
+    }
+
+
+    // TODO: Need to work out how to re-write these so there is one common method
+    // TODO: Do we need to pass the client in here. Should we instead move the before each and after each into these methods
     public static CloseableHttpResponse sendRequest(CloseableHttpClient client, HttpGet request) throws IOException {
+
+        return client.execute(request);
+
+    }
+
+    public static CloseableHttpResponse sendRequest(CloseableHttpClient client, HttpPost request) throws IOException {
+
+        return client.execute(request);
+
+    }
+
+    public static CloseableHttpResponse sendRequest(CloseableHttpClient client, HttpDelete request) throws IOException {
 
         return client.execute(request);
 

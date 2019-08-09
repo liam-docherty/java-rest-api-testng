@@ -29,13 +29,14 @@ public class Get extends BaseClass {
     @Test
     public void getAllProjects() throws IOException {
 
-        request = createHttpGet(PROJECTS_ENDPOINT);
-        setPersonalAuthorizationToken(request);
+        getRequest = createHttpGet(PROJECTS_ENDPOINT);
+        setPersonalAuthorizationToken(getRequest);
 
-        response = sendRequest(client, request);
+        response = sendRequest(client, getRequest);
         printResponseBody(response);
 
         assertEquals(getStatusCode(response), 200);
+
     }
 
 }
