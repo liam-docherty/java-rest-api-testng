@@ -14,6 +14,7 @@ import java.io.IOException;
 
 public class BaseClass {
 
+    // If these endpoints changed per environment they should instead be held in an environments file. OK for this demo
     public static final String BASE_ENDPOINT = "https://api.todoist.com/rest/v1";
     public static final String PROJECTS_ENDPOINT = BASE_ENDPOINT + "/projects";
     public static final String TOKEN = "a72e91d0ab45952b4a22ac4aef77041daf569a9b";
@@ -23,7 +24,7 @@ public class BaseClass {
     public HttpGet request;
 
     @BeforeMethod
-    public void setup() {
+    public void buildClient() {
 
         client = HttpClientBuilder.create().build();
 
