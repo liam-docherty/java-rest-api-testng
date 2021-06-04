@@ -21,7 +21,7 @@
     </build>
     <properties>
         <testng.version>6.14.3</testng.version>
-        <httpcomponents.version>4.5.9</httpcomponents.version>
+        <httpcomponents.version>4.5.13</httpcomponents.version>
         <json.version>20180813</json.version>
         <jackson.version>2.10.0.pr1</jackson.version>
     </properties>
